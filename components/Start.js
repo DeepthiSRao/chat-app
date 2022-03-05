@@ -25,7 +25,7 @@ class Start extends Component {
     render() {
         // background image and icon referrencing
         const image = require("../assets/images/Background.png");
-        const userIcon = require("../assets/images/icon.svg");
+        const userIcon = require("../assets/images/icon.png");
 
         // background color platte options
         const colors = {
@@ -42,7 +42,7 @@ class Start extends Component {
                     style={styles.image}
                     resizeMode="cover" >
                     <View style={styles.titleContainer}>
-                        <Text style={styles.title}>App Title</Text>
+                        <Text style={styles.title}>Chat App</Text>
                     </View>
                     <View style={styles.formContainer}>
                         <View style={styles.textInputContainer}>
@@ -103,14 +103,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     image: {
-        justifyContent: 'center',
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     titleContainer: {
-        height: '44%'
+        height: '44%',
     },
     title: {
-        textAlign: 'center',
         fontSize: 45,
         fontWeight: 'bold',
         color: '#fff',
@@ -118,11 +118,11 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         backgroundColor: '#fff',
-        margin: 16,
-        padding: 10,
-        height: '44%',
+        padding: 16,
         width: '88%',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-around',
+        borderRadius: 10,
+        height: '44%',
     },
     //text input container
     textInputContainer: {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         borderColor: '#757083',
         borderWidth: 1,
         padding: 10,
-        width: '100%'
+        width: '100%',
     },
     userIcon: {
         height: 20,
@@ -146,10 +146,10 @@ const styles = StyleSheet.create({
         color: '#757083',
         fontSize: 16,
         fontWeight: '300',
+        marginBottom: 10,
     },
     colorPalette: {
         flexDirection: 'row',
-        paddingVertical: 10,
     },
     color: {
         width: 50,

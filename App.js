@@ -16,7 +16,6 @@ export default function App() {
                 <Stack.Screen
                     name="Home"
                     component={Start}
-                    options={{title: 'Welcome'}}
                 />
                 <Stack.Screen
                     name="Chat"
