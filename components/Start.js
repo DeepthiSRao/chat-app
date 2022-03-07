@@ -51,6 +51,8 @@ class Start extends Component {
                                 style={styles.userIcon} />
                             <TextInput
                                 accessible={true}
+                                accessibilityLabel='Your name'
+                                accessibilityHint='Enter the name you want for chat screen title'
                                 value={this.state.username}
                                 placeholder="Your Name"
                                 onChangeText={(username) => this.setState({username})}
@@ -60,21 +62,33 @@ class Start extends Component {
                             <Text style={styles.colorPaletteText}>Choose Background Color: </Text>
                             <View style={styles.colorPalette} >
                                 <TouchableOpacity
+                                    accessibilityLabel='Black background'
+                                    accessibilityHint='Sets black background for chat screen'
+                                    accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color1)}
                                 >
                                     <View style={[styles.color, styles.color1]}></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
+                                    accessibilityLabel='Dark Gray background'
+                                    accessibilityHint='Sets dark gray background for chat screen'
+                                    accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color2)}
                                 >
                                     <View style={[styles.color, styles.color2]}></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
+                                    accessibilityLabel='Gray background'
+                                    accessibilityHint='Sets gray background for chat screen'
+                                    accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color3)}
                                 >
                                     <View style={[styles.color, styles.color3]}></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
+                                    accessibilityLabel='Green background'
+                                    accessibilityHint='Sets green background for chat screen'
+                                    accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color4)}
                                 >
                                     <View style={[styles.color, styles.color4]}></View>
@@ -82,6 +96,10 @@ class Start extends Component {
                             </View>
                         </View>
                         <Pressable
+                            accessible={true}
+                            accessibilityLabel='Start Chatting'
+                            accessibilityHint='Click to start chatting'
+                            accessibilityRole='Button'
                             style={styles.chatBtn}
                             onPress={()=> this.props.navigation.navigate('Chat',{
                                 username: this.state.username,
