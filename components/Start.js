@@ -3,10 +3,10 @@ import { Text,
          View, 
          ImageBackground, 
          StyleSheet, 
+         Image,
          TextInput, 
-         Image, 
-         Pressable,
-         TouchableOpacity } from 'react-native';
+         TouchableOpacity, 
+         Pressable, } from 'react-native';
 
 class Start extends Component {
     constructor(props) {
@@ -53,6 +53,7 @@ class Start extends Component {
                                 accessible={true}
                                 accessibilityLabel='Your name'
                                 accessibilityHint='Enter the name you want for chat screen title'
+                                style={styles.inputField}
                                 value={this.state.username}
                                 placeholder="Your Name"
                                 onChangeText={(username) => this.setState({username})}
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         backgroundColor: '#fff',
-        padding: 16,
+        padding: 10,
         width: '88%',
         justifyContent: 'space-around',
         borderRadius: 10,
@@ -147,8 +148,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderColor: '#757083',
         borderWidth: 1,
-        padding: 10,
+        padding: 5,
+        borderRadius: 5,
+    },
+    inputField: {
         width: '100%',
+        fontSize: 18,
     },
     userIcon: {
         height: 20,
