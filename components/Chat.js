@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // importing gifted chat packages
-import { Bubble, GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 import { View, 
          Text, 
          StyleSheet, 
@@ -18,7 +18,9 @@ import { getFirestore,
          addDoc,
          query,
          orderBy, } from 'firebase/firestore';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
+         
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyA45SETQPSU7thswCrS7DWXr0o_OZfhsEU",
@@ -40,7 +42,8 @@ class Chat extends Component {
                 _id: '',
                 name: '',
                 avatar: '',
-            }
+            },
+            isConnected: false,
         }
 
         // check and initialize firebase 
@@ -49,10 +52,28 @@ class Chat extends Component {
     }
     
     componentDidMount(){
-        //setting screen title
+        // setting screen title
         let { username } = this.props.route.params;
         this.props.navigation.setOptions({ title: username });
-        
+
+        // checking internet connection
+        NetInfo.fetch().then(connection => {
+            if(connection.isConnected){
+                console.log('Online');
+                this.setState({ isConnected: true});
+                // fetch data from firestore
+                this.fetchServerData();
+            }else{
+                console.log('Offline');
+                this.setState({ isConnected: false});
+                // get messages from local storage
+                this.getMessages();
+            }
+        }); 
+    }
+
+    fetchServerData = () =>{ 
+        let { username } = this.props.route.params;      
         // creating the query to load messages and listen for new ones.
         this.referenceChatList = query(collection(getFirestore(), 'messages'));
 
@@ -124,6 +145,7 @@ class Chat extends Component {
         });
     }
 
+    // onClick of gifted chat send
     onSend = (message=[]) => {
         // update local state
         this.setState(
@@ -132,11 +154,13 @@ class Chat extends Component {
             }),
             // update firestore
             () => {
+                this.saveMessages();
                 this.addMessage(message[0]);
             }
         );
     }
 
+    // appearance of message boxes
     renderBubble = (props) => {
         return (
             <Bubble
@@ -155,6 +179,41 @@ class Chat extends Component {
         );
     }
 
+    // changing appearance of input tool bar based on online or offline status
+    renderInputToolbar = (props) => {
+        if(this.state.isConnected)
+            return <InputToolbar {...props} />;
+    }
+
+    // async storage methods for accessing data offline
+    saveMessages = async () => {
+        try{
+            await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
+    getMessages = async () => {
+        let messages = '';
+        try{
+            messages = AsyncStorage.getItem('messages') || [];
+            this.setState({
+                messages: JSON.parse(messages)
+            });
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
+    deleteMessages = async () => {
+        try{
+            await AsyncStorage.removeItem('messages');
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
     render() { 
         const { bgColor } = this.props.route.params;
 
@@ -164,6 +223,7 @@ class Chat extends Component {
                     renderBubble={this.renderBubble}
                     messages={this.state.messages}
                     onSend={(message) => this.onSend(message)}
+                    renderInputToolbar={this.renderInputToolbar}
                     user={this.state.user}
                 />
                 {
