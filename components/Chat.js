@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // importing gifted chat packages
 import { Bubble, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 import { View, 
-         Text, 
          StyleSheet, 
          Platform,
          KeyboardAvoidingView } from 'react-native';
@@ -20,7 +19,9 @@ import { getFirestore,
          orderBy, } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
-         
+import MapView from 'react-native-maps';
+import CustomAction from './CustomActions';
+ 
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyA45SETQPSU7thswCrS7DWXr0o_OZfhsEU",
@@ -119,29 +120,34 @@ class Chat extends Component {
             const data = doc.data();
             messages.push({
                 _id: data._id,
-                text: data.text,
+                text: data.text || '',
                 createdAt: data.createdAt.toDate(),
                 user:{
                     _id: data.user._id,
                     name: data.user.name,
                     avatar: data.user.avatar,
                 },
+                image: data.image || null,
+                location: data.location || null,
             });      
         });
 
         // update the messages data on reload 
-        this.setState({
+        this.setState((prevState) => ({
+            ...prevState,
             messages,
-        });
+        }));
     }
 
     //adding new message to the collection
     addMessage = async (message) => {
         await addDoc(this.referenceChatList, {
             _id: message._id,
-            text: message.text,
+            text: message.text || '',
             createdAt: message.createdAt,
             user: message.user,
+            image: message.image || null,
+            location: message.location || null,
         });
     }
 
@@ -214,6 +220,31 @@ class Chat extends Component {
         }
     }
 
+    // dispalys the communication features
+    renderCustomAction = (props) =>{
+        return <CustomAction {...props} />;
+    }
+
+    // dispaly maps from longitude and latitude
+    renderCustomView = ({ currentMessage }) => {
+        const { location } = currentMessage;
+
+        if(!!location){
+            const { longitude, latitude } = location;
+            return(
+                <MapView
+                    style={{width: 200, height: 150, borderRadius: 10, margin: 5}}
+                    region={{
+                        latitude,
+                        longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
+            )
+        }
+    }
+
     render() { 
         const { bgColor } = this.props.route.params;
 
@@ -224,6 +255,8 @@ class Chat extends Component {
                     messages={this.state.messages}
                     onSend={(message) => this.onSend(message)}
                     renderInputToolbar={this.renderInputToolbar}
+                    renderCustomView={this.renderCustomView}
+                    renderActions={this.renderCustomAction}
                     user={this.state.user}
                 />
                 {
