@@ -8,6 +8,14 @@ import { Text,
          TouchableOpacity, 
          Pressable, } from 'react-native';
 
+// background color platte options
+const colors = {
+    color1: "#ffadad",
+    color2: "#fdffb6",
+    color3: "#9bf6ff",
+    color4: "#caffbf",
+};
+
 class Start extends Component {
     constructor(props) {
         super(props);
@@ -26,14 +34,6 @@ class Start extends Component {
         // background image and icon referrencing
         const image = require("../assets/images/Background.png");
         const userIcon = require("../assets/images/icon.png");
-
-        // background color platte options
-        const colors = {
-            color1: "#090C08",
-            color2: "#474056",
-            color3: "#8A95A5",
-            color4: "#B9C6AE",
-        };
 
         return (
             <View style={styles.container}>
@@ -63,24 +63,24 @@ class Start extends Component {
                             <Text style={styles.colorPaletteText}>Choose Background Color: </Text>
                             <View style={styles.colorPalette} >
                                 <TouchableOpacity
-                                    accessibilityLabel='Black background'
-                                    accessibilityHint='Sets black background for chat screen'
+                                    accessibilityLabel='Pink background'
+                                    accessibilityHint='Sets pink background for chat screen'
                                     accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color1)}
                                 >
                                     <View style={[styles.color, styles.color1]}></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    accessibilityLabel='Dark Gray background'
-                                    accessibilityHint='Sets dark gray background for chat screen'
+                                    accessibilityLabel='Yellow background'
+                                    accessibilityHint='Sets yellow background for chat screen'
                                     accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color2)}
                                 >
                                     <View style={[styles.color, styles.color2]}></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    accessibilityLabel='Gray background'
-                                    accessibilityHint='Sets gray background for chat screen'
+                                    accessibilityLabel='Blue background'
+                                    accessibilityHint='Sets blue background for chat screen'
                                     accessibilityRole='button'
                                     onPress={() => this.changeColor(colors.color3)}
                                 >
@@ -181,16 +181,16 @@ const styles = StyleSheet.create({
         borderRadius: 50/2,
     },
     color1:{
-        backgroundColor: '#090C08'
+        backgroundColor: colors.color1
     },
     color2:{
-        backgroundColor: '#474056'
+        backgroundColor: colors.color2
     },
     color3:{
-        backgroundColor: '#8A95A5'
+        backgroundColor: colors.color3
     },
     color4:{
-        backgroundColor: '#B9C6AE'
+        backgroundColor: colors.color4
     },
     // chat button css
     chatBtn: {

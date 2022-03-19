@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, 
+         Text, 
+         View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 // import expo imagepicker & expo location
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 // import firebase packages
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, 
+         ref, 
+         uploadBytes } from 'firebase/storage';
+import { storage } from './firebase';
+import { AuthErrorCodes } from 'firebase/auth';
 
 const CustomActions = (props) => {
     // Alternate for actionsheet HOC, this works with React 16.8 or newer.
@@ -57,7 +63,6 @@ const CustomActions = (props) => {
             if(!result.cancelled){
                 // upload image to firebase
                 const url = await uploadImageFetch(result.uri);
-                console.log('select pic url', url);
                 props.onSend({image: url});
             }
         }catch(err){
@@ -77,7 +82,6 @@ const CustomActions = (props) => {
             if(!result.cancelled){
                 // upload image to firebase
                 const url = await uploadImageFetch(result.uri);
-                console.log('take pic url', url);
                 props.onSend({image: url});
             }
         }catch(err){
@@ -134,10 +138,8 @@ const CustomActions = (props) => {
             xhr.send(null);
         });
 
-        // Get a reference to the storage service, which is used to create references in your storage bucket
-        const storage = getStorage();
         // ref now points to "imag/${imageName}.jpg"
-        const storageRef = ref(storage, `images/${imageName}`);
+        const storageRef = ref(storage, `images/${Date.now()}${imageName}`);
         const response = await uploadBytes(storageRef, blob);
         blob.close();
 
@@ -162,16 +164,16 @@ const styles = StyleSheet.create({
         width: 26,
         height: 26,
         marginLeft: 10,
-        marginRight: 10,
+        marginBottom: 10,
     },
     wrapper: {
         borderRadius: 13,
-        borderColor: 'blue',
+        backgroundColor: '#757083',
         borderWidth: 2,
         flex: 1,
     },
     iconText: {
-        color: 'blue',
+        color: 'white',
         fontWeight: 'bold',
         fontSize: 16,
         backgroundColor: 'transparent',
