@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, 
-         Text, 
+         Text,
+         TouchableOpacity, 
          View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 // import expo imagepicker & expo location
 import * as ImagePicker from 'expo-image-picker';

@@ -259,12 +259,12 @@ class Chat extends Component {
             <View style={[styles.container, {backgroundColor: bgColor}]}>
                <GiftedChat
                     renderBubble={this.renderBubble}
-                    messages={this.state.messages}
-                    onSend={(message) => this.onSend(message)}
                     renderInputToolbar={this.renderInputToolbar}
                     renderCustomView={this.renderCustomView}
                     renderActions={this.renderCustomAction}
                     renderMessageImage={this.renderMessageImage}
+                    onSend={(message) => this.onSend(message)}
+                    messages={this.state.messages}
                     user={this.state.user}
                 />
                 {

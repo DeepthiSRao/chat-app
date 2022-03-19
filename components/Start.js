@@ -123,14 +123,14 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
     },
     titleContainer: {
-        height: '44%',
+        height: 'auto',
     },
     title: {
-        fontSize: 45,
+        fontSize: 50,
         fontWeight: 'bold',
         color: '#fff',
         paddingVertical: 10,
@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
         width: '88%',
+        height: '44%',
         justifyContent: 'space-around',
         borderRadius: 10,
-        height: '44%',
     },
     //text input container
     textInputContainer: {
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     userIcon: {
-        height: 20,
-        width: 20,
+        height: 25,
+        width: 25,
         marginRight: 10,
         alignItems: 'center',
     },
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     },
     colorPaletteText: {
         color: '#757083',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '300',
         marginBottom: 10,
     },
@@ -175,10 +175,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     color: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         marginRight:16,
-        borderRadius: 50/2,
+        borderRadius: 40/2,
     },
     color1:{
         backgroundColor: colors.color1
@@ -195,13 +195,14 @@ const styles = StyleSheet.create({
     // chat button css
     chatBtn: {
         backgroundColor: '#757083',
+        borderRadius: 5,
+        padding: 16,
     },
     chatBtnText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '600',
         textAlign: 'center',
-        padding: 16,
     }
 });
 
