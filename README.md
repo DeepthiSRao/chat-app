@@ -1,4 +1,4 @@
-# Mobile Flashcards
+# Chat App
 
 Chat App is a mobile application built using React Native. Chat app will
 provide users with a chat interface and options to share images and their
